@@ -1,5 +1,5 @@
-import { USER_TABLE_NAME } from "../config/db.config.js";
-import { pool } from "../db.js";
+import { USER_TABLE_NAME } from '../config/db.config.js';
+import { pool } from '../server.js';
 
 export async function getUserByGoogleId(id) {
   const user = await pool.query(

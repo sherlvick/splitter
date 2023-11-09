@@ -1,6 +1,6 @@
 /*  Google AUTH  */
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import { getUserByGoogleId, createUser } from "../services/users.service.js";
+import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
+import { getUserByGoogleId, createUser } from '../services/users.service.js';
 
 const {
   GOOGLE_CLIENT_ID,
@@ -26,7 +26,7 @@ export default function passportConfig(passport) {
           image: profile.photos[0].value,
           email: profile.emails[0].value,
         };
-
+        console.log('bhgh');
         try {
           // find the user in our database
           let user = await getUserByGoogleId(profile.id);
