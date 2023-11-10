@@ -1,6 +1,6 @@
 /*  Google AUTH  */
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { getUserByGoogleId, createUser } from '../services/users.service.js';
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
+import { getUserByGoogleId, createUser } from "../services/users.service.js";
 
 const {
   GOOGLE_CLIENT_ID,
@@ -26,12 +26,12 @@ export default function passportConfig(passport) {
           image: profile.photos[0].value,
           email: profile.emails[0].value,
         };
-        console.log('bhgh');
+
         try {
           // find the user in our database
           let user = await getUserByGoogleId(profile.id);
 
-          if (user) {
+          if (user && user.length) {
             // If user present in our database.
             return done(null, user);
           }
@@ -48,6 +48,7 @@ export default function passportConfig(passport) {
 
   // used to serialize the user for the session
   passport.serializeUser((user, done) => {
+    // console.log("user", JSON.stringify(user));
     done(null, user.id);
   });
 
