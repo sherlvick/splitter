@@ -26,12 +26,11 @@ export default function passportConfig(passport) {
           image: profile.photos[0].value,
           email: profile.emails[0].value,
         };
-
         try {
           // find the user in our database
           let user = await getUserByGoogleId(profile.id);
 
-          if (user && user.length) {
+          if (user) {
             // If user present in our database.
             return done(null, user);
           }
@@ -48,8 +47,7 @@ export default function passportConfig(passport) {
 
   // used to serialize the user for the session
   passport.serializeUser((user, done) => {
-    // console.log("user", JSON.stringify(user));
-    done(null, user.id);
+    done(null, user.googleId);
   });
 
   // used to deserialize the user
