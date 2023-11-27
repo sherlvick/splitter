@@ -18,11 +18,13 @@ export async function createUser({
   image,
   email,
 }) {
-  const user = await pool.query(
+  const [resultSetHeader] = await pool.query(
     `INSERT INTO ${USER_TABLE_NAME}
   VALUES (?, ?, ?, ?, ?, ?)`,
     [googleId, displayName, firstName, lastName, image, email]
   );
-  console.log("user1", user);
-  return user;
+  if (resultSetHeader && resultSetHeader.affectedRows) {
+    return { success: resultSetHeader.affectedRows };
+  }
+  return { success: 0 };
 }

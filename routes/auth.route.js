@@ -11,9 +11,22 @@ authRouter.post(
 authRouter.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: "/",
+    successRedirect: "http://localhost:3000/private-route",
     failureRedirect: "/login",
   })
 );
+
+authRouter.post("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Failed to clear session:", err);
+      } else {
+        console.log("Session cleared successfully");
+      }
+      res.redirect("/");
+    });
+  });
+});
 
 export default authRouter;

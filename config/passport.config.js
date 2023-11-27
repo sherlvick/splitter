@@ -28,15 +28,15 @@ export default function passportConfig(passport) {
         };
         try {
           // find the user in our database
-          let user = await getUserByGoogleId(profile.id);
+          const user = await getUserByGoogleId(profile.id);
 
           if (user) {
             // If user present in our database.
             return done(null, user);
           }
           // if user is not preset in our database save user data to database.
-          user = await createUser(userProfile);
-          return done(null, user);
+          const isUserCreated = await createUser(userProfile);
+          if (isUserCreated.success) return done(null, userProfile);
         } catch (err) {
           console.error(err);
           return done(err, null);
