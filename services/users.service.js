@@ -1,5 +1,5 @@
-import { USER_TABLE_NAME } from "../config/db.config.js";
-import { pool } from "../server.js";
+import { USER_TABLE_NAME } from '../config/db.config.js';
+import { pool } from '../server.js';
 
 export async function getUserByGoogleId(id) {
   const [userArr] = await pool.query({
@@ -20,7 +20,7 @@ export async function createUser({
 }) {
   const [resultSetHeader] = await pool.query(
     `INSERT INTO ${USER_TABLE_NAME}
-  VALUES (?, ?, ?, ?, ?, ?)`,
+   (googleId, displayName, firstName, lastName, profileImage, email)  VALUES (?, ?, ?, ?, ?, ?)`,
     [googleId, displayName, firstName, lastName, image, email]
   );
   if (resultSetHeader && resultSetHeader.affectedRows) {
