@@ -2,10 +2,11 @@ export function ensureAuth(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.status(401).json({
-    error: new Error("Unauthorised request!"),
-  });
+  const authError = new Error("Unauthorised request!");
+  authError.status = 401;
+  next(authError);
 }
+
 export function ensureGuest(req, res, next) {
   if (!req.isAuthenticated()) {
     return next();

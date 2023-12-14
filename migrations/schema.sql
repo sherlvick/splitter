@@ -1,0 +1,28 @@
+CREATE TABLE user (
+  googleId VARCHAR(255) NOT NULL UNIQUE PRIMARY KEY,
+  displayName VARCHAR(255) NOT NULL,
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255),
+  profileImage VARCHAR(500),
+  email VARCHAR(500) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
+);
+
+CREATE TABLE `groups` (
+  id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  displayName VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+  balance FLOAT NOT NULL DEFAULT 0, 
+  g_type ENUM('individual','group') NOT NULL DEFAULT 'group' 
+);
+
+CREATE TABLE users_groups (
+    user_id VARCHAR(255) FOREIGN KEY REFERENCES user(googleId),
+    group_id int FOREIGN KEY REFERENCES `groups`(id),
+    role ENUM('admin','general') NOT NULL DEFAULT 'general',
+    active BOOLEAN NOT NULL DEFAULT true,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NOT NULL ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, group_id)
+)

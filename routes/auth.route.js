@@ -24,6 +24,7 @@ authRouter.post("/logout", function (req, res, next) {
       } else {
         console.log("Session cleared successfully");
       }
+      res.clearCookie("connect.sid", { path: "/" }); //path is the domain path at which this cookie is valid and sent alongwith the request
       res.redirect("/");
     });
   });
