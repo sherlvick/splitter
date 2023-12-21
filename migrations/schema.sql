@@ -28,7 +28,7 @@ CREATE TABLE users_groups (
     FOREIGN KEY (user_id) REFERENCES user(googleId),
     FOREIGN KEY (group_id) REFERENCES `groups`(id),
     PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE expenses (
     id INT NOT NULL AUTO_INCREMENT,
@@ -45,7 +45,7 @@ CREATE TABLE expenses (
     FOREIGN KEY (created_by) REFERENCES user(googleId),
     FOREIGN KEY (updated_by) REFERENCES user(googleId),
     PRIMARY KEY (id)
-)
+);
 
 CREATE TABLE expense_paid_by (
   id INT NOT NULL AUTO_INCREMENT,

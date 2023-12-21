@@ -5,8 +5,8 @@ const mainRouter = Router();
 
 mainRouter.use("/", authRouter);
 
-mainRouter.get("/private-api", ensureAuth, (req, res) => {
-  res.send(`Hello ${JSON.stringify(req.user)}`);
+mainRouter.get("/user/me", ensureAuth, (req, res) => {
+  res.status(200).json({isAuthenticated: true, user: req.user});
 });
 
 mainRouter.use((err, req, res, next) => {

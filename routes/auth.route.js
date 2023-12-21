@@ -12,7 +12,7 @@ authRouter.get(
   "/auth/google/callback",
   passport.authenticate("google", {
     successRedirect: "http://localhost:3000/private-route",
-    failureRedirect: "/login",
+    failureRedirect: "/",
   })
 );
 
